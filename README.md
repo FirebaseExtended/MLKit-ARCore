@@ -3,7 +3,7 @@ This simple project detects objects using Firebase MLKit and tags them in with 3
 
 Based on: [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit)
 
-![Demo Gif](https://media.giphy.com/media/5t2be2a5u85fIDkqWy/200w_d.gif)
+![Alt Text](https://media.giphy.com/media/1oF1KALyk5Y2cagZVF/giphy.gif)
 
 [Demo Video](https://photos.app.goo.gl/14uTsJq32qGVo2eKA)
 
