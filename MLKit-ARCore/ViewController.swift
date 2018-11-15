@@ -115,22 +115,21 @@ class ViewController: UIViewController {
       // session:didHostAnchor: session:didFailToHostAnchor: will get called appropriately.
       if let cloudAnchor = try? gSession.hostCloudAnchor(arAnchor) {
         anchors.updateValue(latestPrediction, forKey: cloudAnchor.identifier)
+        addLabel(latestPrediction, withTransform: transform, identifier: cloudAnchor.identifier)
       }
-
-      addLabel(latestPrediction, withTransform: transform, isNew: true)
     }
   }
 
-  func addLabel(_ label: String, withTransform transform: matrix_float4x4, isNew: Bool) {
+  func addLabel(_ label: String, withTransform transform: matrix_float4x4, identifier: UUID?) {
     let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
 
     // Create 3D Text
-    let node : SCNNode = createNewBubbleParentNode(label, isNew: isNew)
+    let node : SCNNode = createNewBubbleParentNode(label, identifier: identifier)
     sceneView.scene.rootNode.addChildNode(node)
     node.position = worldCoord
   }
 
-  func createNewBubbleParentNode(_ text: String, isNew: Bool) -> SCNNode {
+  func createNewBubbleParentNode(_ text: String, identifier: UUID?) -> SCNNode {
     // Warning: Creating 3D Text is susceptible to crashing. To reduce chances of crashing; reduce number of polygons, letters, smoothness, etc.
 
     // TEXT BILLBOARD CONSTRAINT
@@ -139,11 +138,12 @@ class ViewController: UIViewController {
 
     // BUBBLE-TEXT
     let bubble = SCNText(string: text, extrusionDepth: CGFloat(bubbleDepth))
-    if isNew, let visionImage = createVisionImage() {
+    if let identifier = identifier, let visionImage = createVisionImage() {
       let options = VisionCloudDetectorOptions()
       options.maxResults = 1
       vision.cloudLabelDetector(options: options).detect(in: visionImage) { labels, error in
-        guard error == nil, let labels = labels, !labels.isEmpty else { return }
+        guard error == nil, let labels = labels, !labels.isEmpty, let label = labels[0].label else { return }
+        self.anchors.updateValue(label, forKey: identifier)
         bubble.string = labels[0].label
       }
     }
@@ -292,7 +292,7 @@ extension ViewController: GARSessionDelegate {
   func session(_ session: GARSession, didResolve anchor: GARAnchor) {
     let arAnchor = ARAnchor(transform: anchor.transform)
     sceneView.session.add(anchor: arAnchor)
-    addLabel(canchors[anchor.cloudIdentifier!] ?? "", withTransform: arAnchor.transform, isNew: false)
+    addLabel(canchors[anchor.cloudIdentifier!] ?? "", withTransform: arAnchor.transform, identifier: nil)
   }
 
   func session(_ session: GARSession, didFailToResolve anchor: GARAnchor) {
