@@ -117,20 +117,20 @@ class ViewController: UIViewController {
         anchors.updateValue(latestPrediction, forKey: cloudAnchor.identifier)
       }
 
-      addLabel(latestPrediction, withTransform: transform)
+      addLabel(latestPrediction, withTransform: transform, isNew: true)
     }
   }
 
-  func addLabel(_ label: String, withTransform transform: matrix_float4x4) {
+  func addLabel(_ label: String, withTransform transform: matrix_float4x4, isNew: Bool) {
     let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
 
     // Create 3D Text
-    let node : SCNNode = createNewBubbleParentNode(label)
+    let node : SCNNode = createNewBubbleParentNode(label, isNew: isNew)
     sceneView.scene.rootNode.addChildNode(node)
     node.position = worldCoord
   }
 
-  func createNewBubbleParentNode(_ text : String) -> SCNNode {
+  func createNewBubbleParentNode(_ text: String, isNew: Bool) -> SCNNode {
     // Warning: Creating 3D Text is susceptible to crashing. To reduce chances of crashing; reduce number of polygons, letters, smoothness, etc.
 
     // TEXT BILLBOARD CONSTRAINT
@@ -139,6 +139,15 @@ class ViewController: UIViewController {
 
     // BUBBLE-TEXT
     let bubble = SCNText(string: text, extrusionDepth: CGFloat(bubbleDepth))
+    if isNew, let visionImage = createVisionImage() {
+      let options = VisionCloudDetectorOptions()
+      options.maxResults = 1
+      vision.cloudLabelDetector(options: options).detect(in: visionImage) { labels, error in
+        guard error == nil, let labels = labels, !labels.isEmpty else { return }
+        bubble.string = labels[0].label
+      }
+    }
+
     var font = UIFont(name: "Futura", size: 0.15)
     font = font?.withTraits(traits: .traitBold)
     bubble.font = font
@@ -186,30 +195,30 @@ class ViewController: UIViewController {
 
   }
 
-  func updateMLKit() {
-    ///////////////////////////
-    // Get Camera Image as RGB
-
+  private func createVisionImage() -> VisionImage? {
     guard let pixbuff : CVPixelBuffer? = sceneView.session.currentFrame?.capturedImage else {
-      return
+      return nil
     }
     let ciImage = CIImage(cvPixelBuffer: pixbuff!)
 
     let context = CIContext.init(options: nil)
 
     guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
-      return
+      return nil
     }
     let rotatedImage =
       UIImage.init(cgImage: cgImage, scale: 1.0, orientation: .right)
     guard let rotatedCGImage = rotatedImage.cgImage else {
-      return
+      return nil
     }
     let mirroredImage = UIImage.init(
       cgImage: rotatedCGImage, scale: 1.0, orientation: .leftMirrored)
 
+    return VisionImage.init(image: mirroredImage)
+  }
 
-    let visionImage = VisionImage.init(image: mirroredImage)
+  func updateMLKit() {
+    guard let visionImage = createVisionImage() else { return }
     let group = DispatchGroup()
     let options = VisionLabelDetectorOptions.init(confidenceThreshold: 0.7)
     group.enter()
@@ -226,8 +235,6 @@ class ViewController: UIViewController {
         .map { feature -> String in
           "\(feature.label) \(String(format:"- %.2f", feature.confidence))" }
         .joined(separator: "\n")
-
-
 
       DispatchQueue.main.async {
         // Display Debug Text on screen
@@ -285,7 +292,7 @@ extension ViewController: GARSessionDelegate {
   func session(_ session: GARSession, didResolve anchor: GARAnchor) {
     let arAnchor = ARAnchor(transform: anchor.transform)
     sceneView.session.add(anchor: arAnchor)
-    addLabel(canchors[anchor.cloudIdentifier!] ?? "", withTransform: arAnchor.transform)
+    addLabel(canchors[anchor.cloudIdentifier!] ?? "", withTransform: arAnchor.transform, isNew: false)
   }
 
   func session(_ session: GARSession, didFailToResolve anchor: GARAnchor) {
