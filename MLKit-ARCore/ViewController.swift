@@ -27,12 +27,12 @@ class ViewController: UIViewController {
   // SCENE
   @IBOutlet var sceneView: ARSCNView!
   let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
-  var latestPrediction : String = "…" // a variable containing the latest CoreML prediction
+  var latestPrediction : String = "…" // a variable containing the latest ML Kit prediction
   private var anchors = [UUID : String]()
   private var canchors = [String : String]()
   private var anchorSet: Set<String> = []
 
-  // MLKit
+  // ML Kit
   private lazy var vision = Vision.vision()
   let dispatchQueueML = DispatchQueue(label: "dispatchqueueml", autoreleaseFrequency: .workItem) // A Serial Queue
   @IBOutlet weak var debugTextView: UITextView!
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     sceneView.delegate = self
 
     sceneView.session.delegate = self
-    try? gSession = GARSession(apiKey: "YOUR_ARCORE_API_KEY", bundleIdentifier: nil)
+    try? gSession = GARSession(apiKey: "AIzaSyBioT6F4ZjqnZIemPOqONRLrTQQuQZrEtg", bundleIdentifier: nil)
     gSession.delegate = self
     gSession.delegateQueue = DispatchQueue.main
 
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
     view.addGestureRecognizer(tapGesture)
 
-    // Begin Loop to Update CoreML
+    // Begin Loop to Update ML Kit
     loopMLKitUpdate()
   }
 
@@ -144,7 +144,7 @@ class ViewController: UIViewController {
       vision.cloudLabelDetector(options: options).detect(in: visionImage) { labels, error in
         guard error == nil, let labels = labels, !labels.isEmpty, let label = labels[0].label else { return }
         self.anchors.updateValue(label, forKey: identifier)
-        bubble.string = labels[0].label
+        bubble.string = label
       }
     }
 
@@ -180,11 +180,10 @@ class ViewController: UIViewController {
     return bubbleNodeParent
   }
 
-  // MARK: - MLKit Vision Handling
+  // MARK: - ML Kit Vision Handling
 
   func loopMLKitUpdate() {
-    // Continuously run MLKit whenever it's ready. (Preventing 'hiccups' in Frame Rate)
-
+    // Continuously run ML Kit whenever it's ready. (Preventing 'hiccups' in Frame Rate)
     dispatchQueueML.async {
       // 1. Run Update.
       self.updateMLKit()
@@ -192,7 +191,6 @@ class ViewController: UIViewController {
       // 2. Loop this function.
       self.loopMLKitUpdate()
     }
-
   }
 
   private func createVisionImage() -> VisionImage? {

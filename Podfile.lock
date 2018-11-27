@@ -4,18 +4,18 @@ PODS:
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.2)
     - Protobuf (~> 3.5)
-  - Firebase/Core (5.11.0):
+  - Firebase/Core (5.12.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.3.0)
-  - Firebase/CoreOnly (5.11.0):
-    - FirebaseCore (= 5.1.6)
-  - Firebase/Database (5.11.0):
+  - Firebase/CoreOnly (5.12.0):
+    - FirebaseCore (= 5.1.7)
+  - Firebase/Database (5.12.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (= 5.0.3)
-  - Firebase/MLVision (5.11.0):
+  - Firebase/MLVision (5.12.0):
     - Firebase/CoreOnly
     - FirebaseMLVision (= 0.12.1)
-  - Firebase/MLVisionLabelModel (5.11.0):
+  - Firebase/MLVisionLabelModel (5.12.0):
     - Firebase/CoreOnly
     - FirebaseMLVisionLabelModel (= 0.12.0)
   - FirebaseAnalytics (5.3.0):
@@ -27,7 +27,7 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseCore (5.1.6):
+  - FirebaseCore (5.1.7):
     - GoogleUtilities/Logger (~> 5.2)
   - FirebaseDatabase (5.0.3):
     - FirebaseCore (~> 5.0)
@@ -57,35 +57,35 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleMobileVision/Detector (1.4.1):
+  - GoogleMobileVision/Detector (1.5.0):
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.1)
-  - GoogleMobileVision/LabelDetector (1.4.1):
-    - GoogleMobileVision/Detector (~> 1.4)
+  - GoogleMobileVision/LabelDetector (1.5.0):
+    - GoogleMobileVision/Detector (~> 1.5)
   - GoogleToolboxForMac/Defines (2.1.4)
   - GoogleToolboxForMac/Logger (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
-  - GoogleUtilities/AppDelegateSwizzler (5.3.4):
+  - GoogleUtilities/AppDelegateSwizzler (5.3.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.4)
-  - GoogleUtilities/Logger (5.3.4):
+  - GoogleUtilities/Environment (5.3.5)
+  - GoogleUtilities/Logger (5.3.5):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.4):
+  - GoogleUtilities/MethodSwizzler (5.3.5):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.4):
+  - GoogleUtilities/Network (5.3.5):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.4)"
-  - GoogleUtilities/Reachability (5.3.4):
+  - "GoogleUtilities/NSData+zlib (5.3.5)"
+  - GoogleUtilities/Reachability (5.3.5):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.4):
+  - GoogleUtilities/UserDefaults (5.3.5):
     - GoogleUtilities/Logger
   - GTMSessionFetcher (1.2.0):
     - GTMSessionFetcher/Full (= 1.2.0)
@@ -130,9 +130,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ARCore: ef85fb07ed7d0a1986c1e888a48b136351953197
-  Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
+  Firebase: 9190018e296139d938b99521cde0c15a6e8d2946
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
-  FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
+  FirebaseCore: 027d350adc039aa5483357c6f56556f117c5170e
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseMLCommon: 5fb0152dc0e4de69f86ec37e813fb2555566ebbd
@@ -140,9 +140,9 @@ SPEC CHECKSUMS:
   FirebaseMLVisionLabelModel: 926c57dfa63254ea22e005d39b795b560ab1eb30
   GoogleAPIClientForREST: 5b95b38a0fa912e8ac7bdcf9e124578ef1a61bf2
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
-  GoogleMobileVision: bedef12c0924e948fc09b8f1b38c5fe1a3594b6f
+  GoogleMobileVision: a1f93108b3527d67339e2de80e1db76645f9e8b9
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
+  GoogleUtilities: bb6ff5a302c97a0bc9820dad775505778c5a2676
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48

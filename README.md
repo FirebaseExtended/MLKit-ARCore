@@ -1,5 +1,5 @@
 # MLKit-ARCore
-This simple project detects objects using Firebase MLKit and tags them in with 3D labels in Augmented Reality. Using ARCore and Firebase RTDB, it also shares the labels between phones. This serves as a multiplayer image labeling game.
+This simple project detects objects using Firebase ML Kit and tags them in with 3D labels in Augmented Reality. Using ARCore and Firebase RTDB, it also shares the labels between phones. This serves as a multiplayer image labeling game.
 
 Based on: [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit)
 
@@ -9,7 +9,7 @@ Based on: [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit)
 
 Language: Swift 4.0
 
-Content Technology: SceneKit, Firebase MLKit, ARCore, RTDB 
+Content Technology: SceneKit, Firebase ML Kit, ARCore, RTDB 
 
 Note: SceneKit can achieve a 60 FPS on iPhone7+ - though when it gets hot, it'll drop to 30 FPS.
 
@@ -17,21 +17,21 @@ Note: SceneKit can achieve a 60 FPS on iPhone7+ - though when it gets hot, it'll
 
 - SceneKit Text Labels are expensive to render. Too many polygons (too much text, smoothness, characters) - can cause crashes. In future, SpriteKit would be more efficient for text-labels.
 
-- Whilst ARKit's FPS , is displayed - MLKit's speed is not. However, it does appear sufficiently fast for real-time ARKit applications.
+- Whilst ARKit's FPS , is displayed - ML Kit's speed is not. However, it does appear sufficiently fast for real-time ARKit applications.
 
 - Placement of the label is simply determined by the raycast screen centre-point to a ARKit feature-point. This could be altered for more stable placement.
 
 ## Building Blocks (Overview)
 
-### Get CoreML running in real time in ARKit
+### Get ML Kit running in real time in ARKit
 
-- What we do differently here is we're using ARKit's ARFrame as the image to be fed into MLKit.
+- What we do differently here is we're using ARKit's ARFrame as the image to be fed into ML Kit.
 
 ```
 let pixbuff : CVPixelBuffer? = (sceneView.session.currentFrame?.capturedImage)
 ```
 
-- We also use Threading to continuously run requests to MLKit in realtime, and without disturbing ARKit / SceneView
+- We also use Threading to continuously run requests to ML Kit in realtime, and without disturbing ARKit / SceneView
 
 ```
 let dispatchQueueML = DispatchQueue(label: "dispatchqueueml")
