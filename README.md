@@ -3,7 +3,7 @@ This simple project detects objects using Firebase ML Kit and tags them in with 
 
 Based on: [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit)
 
-![Demo gif](https://media.giphy.com/media/3oo2Sxb6xSahjp3i3y/giphy.gif)
+![Demo gif](https://media.giphy.com/media/5dUxUy8VxfAfwJSD6I/giphy.gif)
 
 [Demo Video](https://photos.app.goo.gl/14uTsJq32qGVo2eKA)
 
