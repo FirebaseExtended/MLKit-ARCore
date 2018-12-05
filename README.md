@@ -5,7 +5,7 @@ Based on: [CoreML-in-ARKit](https://github.com/hanleyweng/CoreML-in-ARKit)
 
 ![Demo gif](https://media.giphy.com/media/5dUxUy8VxfAfwJSD6I/giphy.gif)
 
-[Demo Video](https://photos.app.goo.gl/14uTsJq32qGVo2eKA)
+[Demo Video](https://photos.app.goo.gl/RWdBvMcn2ASmkWaPA)
 
 Language: Swift 4.0
 
